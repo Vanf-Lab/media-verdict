@@ -32,6 +32,11 @@ WP-CLI: `wp media-verdict scan|list|snapshot|trash|restore|report`.
 2. Activate it.
 3. Go to Media → Media Verdict and run a scan.
 
+== Screenshots ==
+
+1. Media Library grid with green "in use" and red "no usage detected" frames.
+2. Scan dashboard: counters, filters and per-file evidence table.
+
 == Changelog ==
 
 = 0.3.1 =
