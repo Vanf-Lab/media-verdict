@@ -1,0 +1,96 @@
+/**
+ * Media Verdict — admin page styles.
+ */
+
+.mv-wrap .mv-cards {
+	display: flex;
+	gap: 12px;
+	margin: 16px 0;
+	flex-wrap: wrap;
+}
+
+.mv-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 14px 20px;
+	min-width: 150px;
+}
+
+.mv-card-value {
+	font-size: 26px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.mv-card-label {
+	color: #646970;
+	font-size: 13px;
+}
+
+.mv-card.mv-green .mv-card-value {
+	color: #1e7e34;
+}
+
+.mv-card.mv-red .mv-card-value {
+	color: #b32d2e;
+}
+
+.mv-filters {
+	margin: 12px 0;
+	display: flex;
+	gap: 6px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.mv-bulk {
+	margin: 12px 0;
+	padding: 10px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+}
+
+.mv-table td {
+	vertical-align: top;
+}
+
+.mv-table img {
+	max-width: 60px;
+	height: auto;
+	display: block;
+	margin-bottom: 4px;
+}
+
+.mv-evidence-full ul {
+	margin: 6px 0 0 16px;
+	list-style: disc;
+}
+
+.mv-evidence-toggle {
+	font-size: 12px;
+}
+
+/* Settings: active parsers list. */
+.mv-parsers {
+	margin-top: 8px;
+}
+.mv-parsers li {
+	margin-bottom: 6px;
+}
+.mv-parsers .mv-badge {
+	position: static;
+	display: inline-block;
+	font-size: 11px;
+	line-height: 1.6;
+	padding: 1px 8px;
+	border-radius: 10px;
+	color: #fff;
+}
+.mv-parsers .mv-badge-used {
+	background: #1e7e34;
+}
+.mv-parsers .mv-badge-unused {
+	background: #787c82;
+}

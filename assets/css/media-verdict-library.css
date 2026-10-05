@@ -1,0 +1,72 @@
+/**
+ * Media Verdict — library overlays (upload.php).
+ * Green = in use, red = no detected usage. Never rely on color alone:
+ * badges carry text labels.
+ */
+
+.attachments .attachment.mv-used .thumbnail,
+.attachments .attachment.mv-used .attachment-preview {
+	outline: 3px solid #22a355;
+	outline-offset: -3px;
+}
+
+.attachments .attachment.mv-unused .thumbnail,
+.attachments .attachment.mv-unused .attachment-preview {
+	outline: 3px solid #d63638;
+	outline-offset: -3px;
+}
+
+.mv-badge {
+	position: absolute;
+	left: 4px;
+	bottom: 4px;
+	z-index: 5;
+	font-size: 10px;
+	line-height: 1.4;
+	padding: 2px 6px;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.mv-badge-used {
+	background: #1e7e34;
+}
+
+.mv-badge-unused {
+	background: #b32d2e;
+}
+
+.mv-badge-unknown {
+	background: #787c82;
+}
+
+/* List mode pills (server-rendered, styled here for consistency). */
+.mv-pill {
+	display: inline-block;
+	font-size: 12px;
+	line-height: 1.6;
+	padding: 2px 10px;
+	border-radius: 999px;
+	color: #fff;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+a.mv-pill:hover {
+	color: #fff;
+	opacity: 0.85;
+}
+
+.mv-pill.mv-used {
+	background: #1e7e34;
+}
+
+.mv-pill.mv-unused {
+	background: #b32d2e;
+}
+
+.mv-pill.mv-unknown {
+	background: #787c82;
+}
