@@ -1,6 +1,6 @@
 === Media Verdict ===
 Contributors: vanflab
-Tags: media, media library, unused images, cleanup, snapshot
+Tags: media, media library, images, unused images, cleanup, optimization, performance, storage, woocommerce, snapshot
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
