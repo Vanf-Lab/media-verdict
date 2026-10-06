@@ -30,15 +30,15 @@ class Media_Verdict_Admin {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
 
-		add_action( 'wp_ajax_mv_scan_start', array( __CLASS__, 'ajax_scan_start' ) );
-		add_action( 'wp_ajax_mv_scan_batch', array( __CLASS__, 'ajax_scan_batch' ) );
-		add_action( 'wp_ajax_mv_trash_dryrun', array( __CLASS__, 'ajax_trash_dryrun' ) );
-		add_action( 'wp_ajax_mv_bulk_trash', array( __CLASS__, 'ajax_bulk_trash' ) );
-		add_action( 'wp_ajax_mv_bulk_snapshot', array( __CLASS__, 'ajax_bulk_snapshot' ) );
-		add_action( 'wp_ajax_mv_protect', array( __CLASS__, 'ajax_protect' ) );
-		add_action( 'wp_ajax_mv_snapshot_restore', array( __CLASS__, 'ajax_snapshot_restore' ) );
-		add_action( 'wp_ajax_mv_snapshot_delete', array( __CLASS__, 'ajax_snapshot_delete' ) );
-		add_action( 'wp_ajax_mv_prune_snapshots', array( __CLASS__, 'ajax_prune_snapshots' ) );
+		add_action( 'wp_ajax_media_verdict_scan_start', array( __CLASS__, 'ajax_scan_start' ) );
+		add_action( 'wp_ajax_media_verdict_scan_batch', array( __CLASS__, 'ajax_scan_batch' ) );
+		add_action( 'wp_ajax_media_verdict_trash_dryrun', array( __CLASS__, 'ajax_trash_dryrun' ) );
+		add_action( 'wp_ajax_media_verdict_bulk_trash', array( __CLASS__, 'ajax_bulk_trash' ) );
+		add_action( 'wp_ajax_media_verdict_bulk_snapshot', array( __CLASS__, 'ajax_bulk_snapshot' ) );
+		add_action( 'wp_ajax_media_verdict_protect', array( __CLASS__, 'ajax_protect' ) );
+		add_action( 'wp_ajax_media_verdict_snapshot_restore', array( __CLASS__, 'ajax_snapshot_restore' ) );
+		add_action( 'wp_ajax_media_verdict_snapshot_delete', array( __CLASS__, 'ajax_snapshot_delete' ) );
+		add_action( 'wp_ajax_media_verdict_prune_snapshots', array( __CLASS__, 'ajax_prune_snapshots' ) );
 	}
 
 	/**
@@ -69,14 +69,14 @@ class Media_Verdict_Admin {
 		}
 
 		wp_enqueue_style(
-			'mv-admin',
+			'media-verdict-admin',
 			MEDIA_VERDICT_PLUGIN_URL . 'assets/css/media-verdict-admin.css',
 			array(),
 			MEDIA_VERDICT_VERSION
 		);
 
 		wp_enqueue_script(
-			'mv-admin',
+			'media-verdict-admin',
 			MEDIA_VERDICT_PLUGIN_URL . 'assets/js/media-verdict-admin.js',
 			array( 'jquery' ),
 			MEDIA_VERDICT_VERSION,
@@ -84,11 +84,11 @@ class Media_Verdict_Admin {
 		);
 
 		wp_localize_script(
-			'mv-admin',
-			'MVAdmin',
+			'media-verdict-admin',
+			'MediaVerdictAdmin',
 			array(
 				'ajax'  => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( 'mv_admin' ),
+				'nonce' => wp_create_nonce( 'media_verdict_admin' ),
 				'i18n'  => array(
 					'scanning'  => __( 'Escaneando…', 'media-verdict' ),
 					'done'      => __( 'Escaneo completado.', 'media-verdict' ),
@@ -161,7 +161,7 @@ class Media_Verdict_Admin {
 	 * @return void
 	 */
 	private static function render_dashboard( $summary ) {
-		$focus = isset( $_GET['mv_focus'] ) ? (int) $_GET['mv_focus'] : 0; // phpcs:ignore WordPress.Security.NonceVerification
+		$focus = isset( $_GET['media_verdict_focus'] ) ? (int) $_GET['media_verdict_focus'] : 0; // phpcs:ignore WordPress.Security.NonceVerification
 
 		echo '<div class="mv-cards">';
 		self::card( __( 'Total', 'media-verdict' ), number_format_i18n( $summary['total'] ), '' );
@@ -208,9 +208,9 @@ class Media_Verdict_Admin {
 	 * @return void
 	 */
 	private static function render_table( $focus = 0 ) {
-		$status = isset( $_GET['mv_status'] ) ? sanitize_key( $_GET['mv_status'] ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification
+		$status = isset( $_GET['media_verdict_status'] ) ? sanitize_key( $_GET['media_verdict_status'] ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification
 		$search = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$paged  = isset( $_GET['mv_paged'] ) ? max( 1, (int) $_GET['mv_paged'] ) : 1; // phpcs:ignore WordPress.Security.NonceVerification
+		$paged  = isset( $_GET['media_verdict_paged'] ) ? max( 1, (int) $_GET['media_verdict_paged'] ) : 1; // phpcs:ignore WordPress.Security.NonceVerification
 		$per    = 20;
 		$offset = ( $paged - 1 ) * $per;
 
@@ -231,10 +231,10 @@ class Media_Verdict_Admin {
 		echo '<input type="hidden" name="page" value="media-verdict" />';
 		foreach ( array( 'all' => __( 'Todos', 'media-verdict' ), 'used' => __( 'En uso', 'media-verdict' ), 'unused' => __( 'Sin uso detectado', 'media-verdict' ) ) as $slug => $label ) {
 			$active = $status === $slug ? ' button-primary' : '';
-			echo '<a class="button' . esc_attr( $active ) . '" href="' . esc_url( add_query_arg( array( 'mv_status' => $slug, 'mv_paged' => 1, 's' => $search ), $base ) ) . '">' . esc_html( $label ) . '</a> ';
+			echo '<a class="button' . esc_attr( $active ) . '" href="' . esc_url( add_query_arg( array( 'media_verdict_status' => $slug, 'media_verdict_paged' => 1, 's' => $search ), $base ) ) . '">' . esc_html( $label ) . '</a> ';
 		}
 		echo '<input type="search" name="s" value="' . esc_attr( $search ) . '" placeholder="' . esc_attr__( 'Buscar…', 'media-verdict' ) . '" /> ';
-		echo '<input type="hidden" name="mv_status" value="' . esc_attr( $status ) . '" />';
+		echo '<input type="hidden" name="media_verdict_status" value="' . esc_attr( $status ) . '" />';
 		echo '<button class="button">' . esc_html__( 'Filtrar', 'media-verdict' ) . '</button>';
 		echo '</form>';
 
@@ -294,7 +294,7 @@ class Media_Verdict_Admin {
 			echo '<div class="tablenav"><div class="tablenav-pages">';
 			for ( $i = 1; $i <= $pages; $i++ ) {
 				$cls = $i === $paged ? ' button-primary' : '';
-				echo '<a class="button' . esc_attr( $cls ) . '" href="' . esc_url( add_query_arg( array( 'mv_status' => $status, 'mv_paged' => $i, 's' => $search ), $base ) ) . '">' . esc_html( $i ) . '</a> ';
+				echo '<a class="button' . esc_attr( $cls ) . '" href="' . esc_url( add_query_arg( array( 'media_verdict_status' => $status, 'media_verdict_paged' => $i, 's' => $search ), $base ) ) . '">' . esc_html( $i ) . '</a> ';
 			}
 			echo '</div></div>';
 		}
@@ -415,7 +415,7 @@ class Media_Verdict_Admin {
 	 * @return void
 	 */
 	private static function render_settings() {
-		if ( isset( $_POST['mv_settings_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['mv_settings_nonce'] ), 'mv_settings' ) ) {
+		if ( isset( $_POST['media_verdict_settings_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['media_verdict_settings_nonce'] ), 'media_verdict_settings' ) ) {
 			update_option( 'media_verdict_retention_days', max( 0, (int) $_POST['media_verdict_retention_days'] ) );
 			echo '<div class="notice notice-success"><p>' . esc_html__( 'Ajustes guardados.', 'media-verdict' ) . '</p></div>';
 		}
@@ -424,7 +424,7 @@ class Media_Verdict_Admin {
 
 		echo '<h2>' . esc_html__( 'Ajustes', 'media-verdict' ) . '</h2>';
 		echo '<form method="post">';
-		wp_nonce_field( 'mv_settings', 'mv_settings_nonce' );
+		wp_nonce_field( 'media_verdict_settings', 'media_verdict_settings_nonce' );
 		echo '<table class="form-table"><tr>';
 		echo '<th><label for="mv-retention">' . esc_html__( 'Retención de snapshots (días)', 'media-verdict' ) . '</label></th>';
 		echo '<td><input id="mv-retention" type="number" min="0" name="media_verdict_retention_days" value="' . esc_attr( $retention ) . '" /> ';
@@ -457,7 +457,7 @@ class Media_Verdict_Admin {
 	 * @return void
 	 */
 	private static function guard() {
-		check_ajax_referer( 'mv_admin', 'nonce' );
+		check_ajax_referer( 'media_verdict_admin', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Sin permisos.', 'media-verdict' ) ), 403 );
 		}

@@ -26,7 +26,7 @@ class Media_Verdict_Library {
 		add_filter( 'wp_prepare_attachment_for_js', array( __CLASS__, 'attachment_js' ), 10, 3 );
 		add_filter( 'manage_media_columns', array( __CLASS__, 'columns' ) );
 		add_action( 'manage_media_custom_column', array( __CLASS__, 'column_content' ), 10, 2 );
-		add_action( 'wp_ajax_mv_verdicts', array( __CLASS__, 'ajax_verdicts' ) );
+		add_action( 'wp_ajax_media_verdict_verdicts', array( __CLASS__, 'ajax_verdicts' ) );
 	}
 
 	/**
@@ -54,14 +54,14 @@ class Media_Verdict_Library {
 		}
 
 		wp_enqueue_style(
-			'mv-library',
+			'media-verdict-library',
 			MEDIA_VERDICT_PLUGIN_URL . 'assets/css/media-verdict-library.css',
 			array(),
 			MEDIA_VERDICT_VERSION
 		);
 
 		wp_enqueue_script(
-			'mv-library',
+			'media-verdict-library',
 			MEDIA_VERDICT_PLUGIN_URL . 'assets/js/media-verdict-library.js',
 			array( 'jquery' ),
 			MEDIA_VERDICT_VERSION,
@@ -69,11 +69,11 @@ class Media_Verdict_Library {
 		);
 
 		wp_localize_script(
-			'mv-library',
-			'MVLibrary',
+			'media-verdict-library',
+			'MediaVerdictLibrary',
 			array(
 				'ajax'  => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( 'mv_verdicts' ),
+				'nonce' => wp_create_nonce( 'media_verdict_verdicts' ),
 				'admin' => admin_url( 'upload.php?page=media-verdict' ),
 				'i18n'  => array(
 					'used'       => __( 'En uso', 'media-verdict' ),
@@ -117,7 +117,7 @@ class Media_Verdict_Library {
 	 * @return void
 	 */
 	public static function ajax_verdicts() {
-		check_ajax_referer( 'mv_verdicts', 'nonce' );
+		check_ajax_referer( 'media_verdict_verdicts', 'nonce' );
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Sin permisos.', 'media-verdict' ) ), 403 );
@@ -180,7 +180,7 @@ class Media_Verdict_Library {
 	 * @return array
 	 */
 	public static function columns( $columns ) {
-		$columns['mv_usage'] = __( 'Uso', 'media-verdict' );
+		$columns['media_verdict_usage'] = __( 'Uso', 'media-verdict' );
 		return $columns;
 	}
 
@@ -192,12 +192,12 @@ class Media_Verdict_Library {
 	 * @return void
 	 */
 	public static function column_content( $column_name, $post_id ) {
-		if ( 'mv_usage' !== $column_name ) {
+		if ( 'media_verdict_usage' !== $column_name ) {
 			return;
 		}
 
 		$verdict = Media_Verdict_DB::get_verdict( (int) $post_id );
-		$url     = admin_url( 'upload.php?page=media-verdict&mv_focus=' . (int) $post_id );
+		$url     = admin_url( 'upload.php?page=media-verdict&media_verdict_focus=' . (int) $post_id );
 
 		if ( ! $verdict ) {
 			echo '<span class="mv-pill mv-unknown">' . esc_html__( 'Sin escanear', 'media-verdict' ) . '</span>';

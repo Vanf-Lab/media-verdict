@@ -14,9 +14,9 @@
 	var timer = null;
 
 	function badgeText(status) {
-		if (status === 'used') return MVLibrary.i18n.used;
-		if (status === 'unused') return MVLibrary.i18n.unused;
-		return MVLibrary.i18n.notScanned;
+		if (status === 'used') return MediaVerdictLibrary.i18n.used;
+		if (status === 'unused') return MediaVerdictLibrary.i18n.unused;
+		return MediaVerdictLibrary.i18n.notScanned;
 	}
 
 	function applyToItem($item, id) {
@@ -28,12 +28,12 @@
 		var $badge = $('<span class="mv-badge mv-badge-' + data.status + '"></span>').text(badgeText(data.status));
 		$item.append($badge);
 		if (data.evidence) {
-			$item.attr('title', MVLibrary.i18n.evidence + ': ' + data.evidence);
+			$item.attr('title', MediaVerdictLibrary.i18n.evidence + ': ' + data.evidence);
 		}
 		// Click on the badge opens the detail view in Media Verdict.
 		$badge.off('click.mv').on('click.mv', function (e) {
 			e.stopPropagation();
-			window.location.href = MVLibrary.admin + '&mv_focus=' + id;
+			window.location.href = MediaVerdictLibrary.admin + '&media_verdict_focus=' + id;
 		});
 	}
 
@@ -52,9 +52,9 @@
 	function flush() {
 		var ids = collectVisible();
 		if (!ids.length) return;
-		$.post(MVLibrary.ajax, {
-			action: 'mv_verdicts',
-			nonce: MVLibrary.nonce,
+		$.post(MediaVerdictLibrary.ajax, {
+			action: 'media_verdict_verdicts',
+			nonce: MediaVerdictLibrary.nonce,
 			ids: ids
 		}).done(function (res) {
 			if (res && res.success && res.data) {

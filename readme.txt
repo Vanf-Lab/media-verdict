@@ -1,14 +1,14 @@
 === Media Verdict ===
-Contributors: vanflab
+Contributors: guillermo-kafelnikov
 Tags: media, media library, images, unused images, cleanup, optimization, performance, storage, woocommerce, snapshot
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Fail-safe media library usage detector: green/red frames in the library, evidence of where each image is used, snapshot-first safe deletion with trash and one-click restore.
+Fail-safe media library usage detector: green/red usage frames, per-item evidence, snapshot-first safe deletion with trash and one-click restore.
 
 == Description ==
 
@@ -38,6 +38,9 @@ WP-CLI: `wp media-verdict scan|list|snapshot|trash|restore|report`.
 2. Scan dashboard: counters, filters and per-file evidence table.
 
 == Changelog ==
+
+= 0.3.2 =
+* WordPress.org review compliance: renamed the internal AJAX action prefix from `mv_` to `media_verdict_` (plus nonces, script handles and related identifiers) to meet the directory prefixing guideline; readme Contributors now uses the WordPress.org username and the short description was shortened to 145 characters.
 
 = 0.3.1 =
 * Fixed: scans started from wp-admin lost all evidence between AJAX requests (the driver creates a new scanner per request) and marked everything as unused. Evidence is now persisted per batch in the `media_verdict_scan_evidence` option and merged back before finalizing, so admin scans produce the same verdicts as CLI scans.

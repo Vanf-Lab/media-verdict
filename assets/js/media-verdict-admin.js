@@ -16,8 +16,8 @@
 	function post(action, data, $target) {
 		data = data || {};
 		data.action = action;
-		data.nonce = MVAdmin.nonce;
-		return $.post(MVAdmin.ajax, data).done(function (res) {
+		data.nonce = MediaVerdictAdmin.nonce;
+		return $.post(MediaVerdictAdmin.ajax, data).done(function (res) {
 			if ($target) {
 				if (res && res.success) {
 					$target.html('<div class="notice notice-success inline"><p>' + (res.data.message || 'OK') + '</p></div>');
@@ -36,7 +36,7 @@
 		$('#mv-scan-bar').show();
 		$('#mv-scan-fill').css('width', '0');
 
-		post('mv_scan_start', {}).done(function (res) {
+		post('media_verdict_scan_start', {}).done(function (res) {
 			if (!res || !res.success) {
 				$btn.prop('disabled', false);
 				return;
@@ -46,8 +46,8 @@
 		});
 
 		function runBatch(phase, offset, phases) {
-			$('#mv-scan-label').text(MVAdmin.i18n.scanning + ' ' + (phases[phase] || ''));
-			post('mv_scan_batch', { phase: phase, offset: offset }).done(function (res) {
+			$('#mv-scan-label').text(MediaVerdictAdmin.i18n.scanning + ' ' + (phases[phase] || ''));
+			post('media_verdict_scan_batch', { phase: phase, offset: offset }).done(function (res) {
 				if (!res || !res.success) {
 					$btn.prop('disabled', false);
 					$('#mv-scan-label').text('Error');
@@ -56,7 +56,7 @@
 				var d = res.data;
 				if (d.finished) {
 					$('#mv-scan-fill').css('width', '100%');
-					$('#mv-scan-label').text(MVAdmin.i18n.done);
+					$('#mv-scan-label').text(MediaVerdictAdmin.i18n.done);
 					setTimeout(function () { location.reload(); }, 800);
 					return;
 				}
@@ -81,7 +81,7 @@
 	function needSelection() {
 		var ids = selectedIds();
 		if (!ids.length) {
-			alert(MVAdmin.i18n.selectFirst);
+			alert(MediaVerdictAdmin.i18n.selectFirst);
 			return null;
 		}
 		return ids;
@@ -90,14 +90,14 @@
 	$('#mv-bulk-snapshot').on('click', function () {
 		var ids = needSelection();
 		if (!ids) return;
-		post('mv_bulk_snapshot', { ids: ids }, $('#mv-bulk-result'));
+		post('media_verdict_bulk_snapshot', { ids: ids }, $('#mv-bulk-result'));
 	});
 
 	$('#mv-bulk-dryrun').on('click', function () {
 		var ids = needSelection();
 		if (!ids) return;
 		var $t = $('#mv-bulk-result');
-		post('mv_trash_dryrun', { ids: ids }).done(function (res) {
+		post('media_verdict_trash_dryrun', { ids: ids }).done(function (res) {
 			if (res && res.success) {
 				var html = '<div class="notice notice-info inline"><p><strong>' + res.data.message + '</strong></p><ul>';
 				$.each(res.data.items, function (_, it) {
@@ -113,8 +113,8 @@
 	$('#mv-bulk-trash').on('click', function () {
 		var ids = needSelection();
 		if (!ids) return;
-		if (!confirm(MVAdmin.i18n.confirmTrash)) return;
-		post('mv_bulk_trash', { ids: ids }, $('#mv-bulk-result')).done(function () {
+		if (!confirm(MediaVerdictAdmin.i18n.confirmTrash)) return;
+		post('media_verdict_bulk_trash', { ids: ids }, $('#mv-bulk-result')).done(function () {
 			setTimeout(function () { location.reload(); }, 1500);
 		});
 	});
@@ -122,33 +122,33 @@
 	$('#mv-bulk-protect').on('click', function () {
 		var ids = needSelection();
 		if (!ids) return;
-		post('mv_protect', { ids: ids }, $('#mv-bulk-result'));
+		post('media_verdict_protect', { ids: ids }, $('#mv-bulk-result'));
 	});
 
 	// ---- Snapshots ----------------------------------------------------------
 	$(document).on('click', '.mv-snap-restore', function () {
 		var file = $(this).data('file');
-		post('mv_snapshot_restore', { file: file }, $('#mv-snap-result'));
+		post('media_verdict_snapshot_restore', { file: file }, $('#mv-snap-result'));
 	});
 
 	$(document).on('click', '.mv-snap-delete', function () {
 		var file = $(this).data('file');
 		if (!confirm(file + ' — ¿eliminar snapshot?')) return;
 		var $row = $(this).closest('tr');
-		post('mv_snapshot_delete', { file: file }, $('#mv-snap-result')).done(function (res) {
+		post('media_verdict_snapshot_delete', { file: file }, $('#mv-snap-result')).done(function (res) {
 			if (res && res.success) $row.fadeOut();
 		});
 	});
 
 	$('#mv-prune-snapshots').on('click', function () {
-		post('mv_prune_snapshots', {}, $('#mv-prune-result'));
+		post('media_verdict_prune_snapshots', {}, $('#mv-prune-result'));
 	});
 
 	// ---- Protected -----------------------------------------------------------
 	$(document).on('click', '.mv-unprotect', function () {
 		var id = $(this).data('id');
 		var $row = $(this).closest('tr');
-		post('mv_protect', { ids: [id], unprotect: 1 }, $('#mv-protect-result')).done(function (res) {
+		post('media_verdict_protect', { ids: [id], unprotect: 1 }, $('#mv-protect-result')).done(function (res) {
 			if (res && res.success) $row.fadeOut();
 		});
 	});

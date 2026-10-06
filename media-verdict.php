@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Media Verdict
  * Description: Fail-safe media library usage detector. Shows which images are in use (green) and which have no detected usage (red) right inside the Media Library, with snapshot-first safe deletion, trash and one-click restore.
- * Version: 0.3.1
+ * Version: 0.3.2
  * Requires at least: 6.4
  * Requires PHP: 8.0
  * Author: Vanf Lab
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MEDIA_VERDICT_VERSION', '0.3.1' );
+define( 'MEDIA_VERDICT_VERSION', '0.3.2' );
 define( 'MEDIA_VERDICT_PLUGIN_FILE', __FILE__ );
 define( 'MEDIA_VERDICT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MEDIA_VERDICT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

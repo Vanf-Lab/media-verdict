@@ -82,18 +82,18 @@ class Media_Verdict_Snapshot {
 	 */
 	public static function create( array $ids, $label = '' ) {
 		if ( ! self::ensure_snapshot_dir() ) {
-			return new WP_Error( 'mv_snapshot_dir', __( 'No se pudo crear el directorio de snapshots.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_snapshot_dir', __( 'No se pudo crear el directorio de snapshots.', 'media-verdict' ) );
 		}
 
 		if ( ! class_exists( 'ZipArchive' ) ) {
-			return new WP_Error( 'mv_no_zip', __( 'ZipArchive no está disponible en este servidor.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_no_zip', __( 'ZipArchive no está disponible en este servidor.', 'media-verdict' ) );
 		}
 
 		$ids = array_values( array_unique( array_map( 'intval', $ids ) ) );
 		$ids = array_filter( $ids );
 
 		if ( empty( $ids ) ) {
-			return new WP_Error( 'mv_no_ids', __( 'No hay adjuntos para respaldar.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_no_ids', __( 'No hay adjuntos para respaldar.', 'media-verdict' ) );
 		}
 
 		$upload_dir = wp_upload_dir();
@@ -106,7 +106,7 @@ class Media_Verdict_Snapshot {
 
 		$zip = new ZipArchive();
 		if ( true !== $zip->open( $path, ZipArchive::CREATE | ZipArchive::OVERWRITE ) ) {
-			return new WP_Error( 'mv_zip_open', __( 'No se pudo crear el archivo ZIP.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_zip_open', __( 'No se pudo crear el archivo ZIP.', 'media-verdict' ) );
 		}
 
 		$manifest = array(
@@ -155,7 +155,7 @@ class Media_Verdict_Snapshot {
 
 		if ( 0 === $count ) {
 			@unlink( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged,WordPress.WP.AlternativeFunctions
-			return new WP_Error( 'mv_no_files', __( 'Ningún adjunto tenía archivos en disco.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_no_files', __( 'Ningún adjunto tenía archivos en disco.', 'media-verdict' ) );
 		}
 
 		Media_Verdict_DB::audit(
@@ -267,17 +267,17 @@ class Media_Verdict_Snapshot {
 		$path = trailingslashit( MEDIA_VERDICT_SNAPSHOT_DIR ) . $file;
 
 		if ( ! file_exists( $path ) ) {
-			return new WP_Error( 'mv_snapshot_missing', __( 'El snapshot no existe.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_snapshot_missing', __( 'El snapshot no existe.', 'media-verdict' ) );
 		}
 
 		$manifest = self::read_manifest( $path );
 		if ( ! is_array( $manifest ) || empty( $manifest['items'] ) ) {
-			return new WP_Error( 'mv_snapshot_manifest', __( 'El manifiesto del snapshot es inválido.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_snapshot_manifest', __( 'El manifiesto del snapshot es inválido.', 'media-verdict' ) );
 		}
 
 		$zip = new ZipArchive();
 		if ( true !== $zip->open( $path ) ) {
-			return new WP_Error( 'mv_zip_open', __( 'No se pudo abrir el snapshot.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_zip_open', __( 'No se pudo abrir el snapshot.', 'media-verdict' ) );
 		}
 
 		$upload_dir = wp_upload_dir();
@@ -315,7 +315,7 @@ class Media_Verdict_Snapshot {
 				if ( ! empty( $f['md5'] ) && md5_file( $dest ) !== $f['md5'] ) {
 					$zip->close();
 					return new WP_Error(
-						'mv_restore_md5',
+						'media_verdict_restore_md5',
 						sprintf(
 							/* translators: %s: file path */
 							__( 'Fallo de integridad al restaurar %s.', 'media-verdict' ),
