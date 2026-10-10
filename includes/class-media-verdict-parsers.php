@@ -264,7 +264,7 @@ class Media_Verdict_Parser_SmartSlider3 extends Media_Verdict_Parser {
 
 			$label = sprintf(
 				/* translators: 1: slide ID, 2: slider name */
-				__( 'Smart Slider 3: fondo del slide #%1$d «%2$s»', 'media-verdict' ),
+				__( 'Smart Slider 3: slide #%1$d background "%2$s"', 'media-verdict' ),
 				$slide_id,
 				$name
 			);
@@ -352,12 +352,12 @@ class Media_Verdict_Parser_RevSlider extends Media_Verdict_Parser {
 
 			$label = sprintf(
 				/* translators: %s: slider alias */
-				__( 'Revolution Slider: slide de «%s»', 'media-verdict' ),
+				__( 'Revolution Slider: slide of "%s"', 'media-verdict' ),
 				$alias
 			);
 			$label_admin = sprintf(
 				/* translators: %s: slider alias */
-				__( 'Vista previa de admin (Revolution Slider «%s»)', 'media-verdict' ),
+				__( 'Admin preview (Revolution Slider "%s")', 'media-verdict' ),
 				$alias
 			);
 
@@ -438,7 +438,7 @@ class Media_Verdict_Parser_LayerSlider extends Media_Verdict_Parser {
 
 			$label = sprintf(
 				/* translators: %s: project name */
-				__( 'LayerSlider: fondo de slide (proyecto «%s»)', 'media-verdict' ),
+				__( 'LayerSlider: slide background (project "%s")', 'media-verdict' ),
 				$name
 			);
 
@@ -507,7 +507,7 @@ class Media_Verdict_Parser_MasterSlider extends Media_Verdict_Parser {
 			$label       = '' !== $slider_name
 				? sprintf(
 					/* translators: 1: title, 2: ID */
-					__( 'Master Slider: slide de «%1$s» (#%2$s)', 'media-verdict' ),
+					__( 'Master Slider: slide "%1$s" (#%2$s)', 'media-verdict' ),
 					$slider_name,
 					$slider_id
 				)
@@ -621,7 +621,7 @@ class Media_Verdict_Parser_VisualComposer extends Media_Verdict_Parser {
 			$fixed = str_replace( '|!|vcvUploadUrl|!|', $base, (string) $row->post_content );
 			$label = sprintf(
 				/* translators: 1: ID, 2: title */
-				__( 'Visual Composer: página #%1$d%2$s', 'media-verdict' ),
+				__( 'Visual Composer: page #%1$d%2$s', 'media-verdict' ),
 				(int) $row->ID,
 				'' !== $row->post_title ? ' «' . $row->post_title . '»' : ''
 			);
@@ -658,7 +658,7 @@ class Media_Verdict_Parser_VisualComposer extends Media_Verdict_Parser {
 			}
 			$label = sprintf(
 				/* translators: %d: post ID */
-				__( 'Visual Composer: página #%d', 'media-verdict' ),
+				__( 'Visual Composer: page #%d', 'media-verdict' ),
 				(int) $row->post_id
 			);
 
@@ -732,7 +732,7 @@ class Media_Verdict_Parser_WPBakery extends Media_Verdict_Parser {
 			}
 			$label = sprintf(
 				/* translators: 1: ID, 2: title */
-				__( 'WPBakery: página #%1$d%2$s', 'media-verdict' ),
+				__( 'WPBakery: page #%1$d%2$s', 'media-verdict' ),
 				(int) $row->ID,
 				'' !== $row->post_title ? ' «' . $row->post_title . '»' : ''
 			);
@@ -800,7 +800,7 @@ class Media_Verdict_Parser_Cornerstone extends Media_Verdict_Parser {
 			$title = get_the_title( (int) $row->post_id );
 			$label = sprintf(
 				/* translators: 1: ID, 2: title */
-				__( 'Cornerstone: página #%1$d%2$s', 'media-verdict' ),
+				__( 'Cornerstone: page #%1$d%2$s', 'media-verdict' ),
 				(int) $row->post_id,
 				'' !== $title ? ' «' . $title . '»' : ''
 			);
@@ -873,7 +873,7 @@ class Media_Verdict_Parser_Oxygen extends Media_Verdict_Parser {
 			$title = get_the_title( (int) $row->post_id );
 			$label = sprintf(
 				/* translators: 1: ID, 2: title */
-				__( 'Oxygen: página #%1$d%2$s', 'media-verdict' ),
+				__( 'Oxygen: page #%1$d%2$s', 'media-verdict' ),
 				(int) $row->post_id,
 				'' !== $title ? ' «' . $title . '»' : ''
 			);

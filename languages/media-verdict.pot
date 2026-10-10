@@ -1,0 +1,374 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Media Verdict 0.3.2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " (+%d more)"
+msgstr ""
+
+msgid "%1$d moved to trash, %2$d failed."
+msgstr ""
+
+msgid "%1$s #%2$d (revision)"
+msgstr ""
+
+msgid "%1$s #%2$d%3$s"
+msgstr ""
+
+msgid "%1$s: %2$d / %3$d"
+msgstr ""
+
+msgid "%d attachments moved to trash. Snapshot: %s"
+msgstr ""
+
+msgid "%d expired snapshots deleted."
+msgstr ""
+
+msgid "0 = keep forever. Expired snapshots can be deleted manually."
+msgstr ""
+
+msgid "WARNING: the media trash is not enabled on this site. The trash flow is blocked until MEDIA_TRASH is enabled."
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Dynamic system asset (possible reference from code)"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Attachment"
+msgstr ""
+
+msgid "Attachments unprotected."
+msgstr ""
+
+msgid "Attachments protected."
+msgstr ""
+
+msgid "Attachments"
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Search…"
+msgstr ""
+
+msgid "Cornerstone: page #%1$d%2$s"
+msgstr ""
+
+msgid "Created"
+msgstr ""
+
+msgid "Create snapshot"
+msgstr ""
+
+msgid "Unprotect"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Fail-safe media library usage detector: when in doubt, a file is marked as in use. \"No detected usage\" means the scan found no references — it is not a guarantee: no scanner can see dynamic references (hardcoded CSS, JS-built URLs, email templates). Deletion always creates a snapshot first and uses the WordPress trash."
+msgstr ""
+
+msgid "Trash dry-run"
+msgstr ""
+
+msgid "The snapshot manifest is invalid."
+msgstr ""
+
+msgid "The snapshot does not exist."
+msgstr ""
+
+msgid "Elementor: %s"
+msgstr ""
+
+msgid "Delete expired snapshots"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "In use"
+msgstr ""
+
+msgid "Post"
+msgstr ""
+
+msgid "Scanning…"
+msgstr ""
+
+msgid "Scan"
+msgstr ""
+
+msgid "Scan complete."
+msgstr ""
+
+msgid "Evidence"
+msgstr ""
+
+msgid "Integrity failure while restoring %s."
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Builder/slider sources detected on this site. Each parser can only mark images as in use, never condemn them."
+msgstr ""
+
+msgid "%s gallery"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Action history"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Site icon"
+msgstr ""
+
+msgid "Featured image of %s"
+msgstr ""
+
+msgid "The media trash is not enabled on this site (MEDIA_TRASH is disabled). To use it, add define( 'MEDIA_TRASH', true ); to your wp-config.php. For safety, Media Verdict will not move files to the trash until then."
+msgstr ""
+
+msgid "LayerSlider: slide background (project \"%s\")"
+msgstr ""
+
+msgid "Site logo"
+msgstr ""
+
+msgid "Protected attachments are always marked as in use and never appear as trash candidates."
+msgstr ""
+
+msgid "Master Slider: slide (slider #%s)"
+msgstr ""
+
+msgid "Master Slider: slide \"%1$s\" (#%2$s)"
+msgstr ""
+
+msgid "Media Verdict"
+msgstr ""
+
+msgid "Meta %1$s of %2$s"
+msgstr ""
+
+msgid "Meta %1$s of term \"%2$s\""
+msgstr ""
+
+msgid "Meta %1$s of user \"%2$s\""
+msgstr ""
+
+msgid "Move to trash (with snapshot)"
+msgstr ""
+
+msgid "No attachments had files on disk."
+msgstr ""
+
+msgid "Not detected"
+msgstr ""
+
+msgid "No attachments to back up."
+msgstr ""
+
+msgid "No protected attachments."
+msgstr ""
+
+msgid "Could not open the snapshot."
+msgstr ""
+
+msgid "Could not create the ZIP file."
+msgstr ""
+
+msgid "Could not create the snapshots directory."
+msgstr ""
+
+msgid "Could not delete the snapshot."
+msgstr ""
+
+msgid "You do not have permission to view this page."
+msgstr ""
+
+msgid "Option %s"
+msgstr ""
+
+msgid "Oxygen: page #%1$d%2$s"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Active parsers"
+msgstr ""
+
+msgid "Theme customizer (%s)"
+msgstr ""
+
+msgid "Elementor template"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Protect"
+msgstr ""
+
+msgid "Manually protected"
+msgstr ""
+
+msgid "Protected"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+msgid "Recoverable (est.)"
+msgstr ""
+
+msgid "Restored %1$d files and %2$d attachments from the snapshot."
+msgstr ""
+
+msgid "Restored %1$d files and %2$d attachments."
+msgstr ""
+
+msgid "Restore"
+msgstr ""
+
+msgid "Snapshot retention (days)"
+msgstr ""
+
+msgid "Revision"
+msgstr ""
+
+msgid "Revolution Slider: slide of \"%s\""
+msgstr ""
+
+msgid "A snapshot will be created first and the files will go to the WordPress trash (not permanently deleted). Continue?"
+msgstr ""
+
+msgid "A snapshot would be created and %d attachments would go to the WordPress trash (recoverable)."
+msgstr ""
+
+msgid "Select at least one attachment."
+msgstr ""
+
+msgid "No recorded actions."
+msgstr ""
+
+msgid "No attachments selected."
+msgstr ""
+
+msgid "Not scanned"
+msgstr ""
+
+msgid "No recorded evidence."
+msgstr ""
+
+msgid "No permission."
+msgstr ""
+
+msgid "No results. Run a scan to populate the table."
+msgstr ""
+
+msgid "No detected usage"
+msgstr ""
+
+msgid "No detected usage: no references found during the scan. This is not a guarantee."
+msgstr ""
+
+msgid "Smart Slider 3: slide #%1$d background \"%2$s\""
+msgstr ""
+
+msgid "Snapshot created with %d attachments."
+msgstr ""
+
+msgid "Snapshot created: %1$d attachments in %2$s"
+msgstr ""
+
+msgid "Snapshot manually deleted."
+msgstr ""
+
+msgid "Snapshot deleted."
+msgstr ""
+
+msgid "Snapshot"
+msgstr ""
+
+msgid "Snapshots"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "No snapshots yet."
+msgstr ""
+
+msgid "No scan has been run yet."
+msgstr ""
+
+msgid "All selected items are protected."
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Total"
+msgstr ""
+
+msgid "Usage"
+msgstr ""
+
+msgid "View details"
+msgstr ""
+
+msgid "Verdict"
+msgstr ""
+
+msgid "Verdicts"
+msgstr ""
+
+msgid "Admin preview (Revolution Slider \"%s\")"
+msgstr ""
+
+msgid "Visual Composer: page #%1$d%2$s"
+msgstr ""
+
+msgid "Visual Composer: page #%d"
+msgstr ""
+
+msgid "WPBakery: page #%1$d%2$s"
+msgstr ""
+
+msgid "Widget (%s)"
+msgstr ""
+
+msgid "ZipArchive is not available on this server."
+msgstr ""
+
+msgid "details"
+msgstr ""
+
+msgid "Last scan: %s"
+msgstr ""
+
+msgid "—"
+msgstr ""

@@ -82,18 +82,18 @@ class Media_Verdict_Snapshot {
 	 */
 	public static function create( array $ids, $label = '' ) {
 		if ( ! self::ensure_snapshot_dir() ) {
-			return new WP_Error( 'media_verdict_snapshot_dir', __( 'No se pudo crear el directorio de snapshots.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_snapshot_dir', __( 'Could not create the snapshots directory.', 'media-verdict' ) );
 		}
 
 		if ( ! class_exists( 'ZipArchive' ) ) {
-			return new WP_Error( 'media_verdict_no_zip', __( 'ZipArchive no está disponible en este servidor.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_no_zip', __( 'ZipArchive is not available on this server.', 'media-verdict' ) );
 		}
 
 		$ids = array_values( array_unique( array_map( 'intval', $ids ) ) );
 		$ids = array_filter( $ids );
 
 		if ( empty( $ids ) ) {
-			return new WP_Error( 'media_verdict_no_ids', __( 'No hay adjuntos para respaldar.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_no_ids', __( 'No attachments to back up.', 'media-verdict' ) );
 		}
 
 		$upload_dir = wp_upload_dir();
@@ -106,7 +106,7 @@ class Media_Verdict_Snapshot {
 
 		$zip = new ZipArchive();
 		if ( true !== $zip->open( $path, ZipArchive::CREATE | ZipArchive::OVERWRITE ) ) {
-			return new WP_Error( 'media_verdict_zip_open', __( 'No se pudo crear el archivo ZIP.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_zip_open', __( 'Could not create the ZIP file.', 'media-verdict' ) );
 		}
 
 		$manifest = array(
@@ -155,7 +155,7 @@ class Media_Verdict_Snapshot {
 
 		if ( 0 === $count ) {
 			@unlink( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged,WordPress.WP.AlternativeFunctions
-			return new WP_Error( 'media_verdict_no_files', __( 'Ningún adjunto tenía archivos en disco.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_no_files', __( 'No attachments had files on disk.', 'media-verdict' ) );
 		}
 
 		Media_Verdict_DB::audit(
@@ -164,7 +164,7 @@ class Media_Verdict_Snapshot {
 			$file,
 			sprintf(
 				/* translators: %d: number of attachments */
-				__( 'Snapshot creado con %d adjuntos.', 'media-verdict' ),
+				__( 'Snapshot created with %d attachments.', 'media-verdict' ),
 				$count
 			)
 		);
@@ -196,7 +196,7 @@ class Media_Verdict_Snapshot {
 	 * @return string
 	 */
 	public static function media_trash_unavailable_message() {
-		return __( 'La papelera de medios no está activa en este sitio (MEDIA_TRASH desactivado). Para usarla, añadí define( \'MEDIA_TRASH\', true ); a tu wp-config.php. Por seguridad, Media Verdict no mueve archivos a la papelera hasta entonces.', 'media-verdict' );
+		return __( 'The media trash is not enabled on this site (MEDIA_TRASH is disabled). To use it, add define( \'MEDIA_TRASH\', true ); to your wp-config.php. For safety, Media Verdict will not move files to the trash until then.', 'media-verdict' );
 	}
 
 	/**
@@ -267,17 +267,17 @@ class Media_Verdict_Snapshot {
 		$path = trailingslashit( MEDIA_VERDICT_SNAPSHOT_DIR ) . $file;
 
 		if ( ! file_exists( $path ) ) {
-			return new WP_Error( 'media_verdict_snapshot_missing', __( 'El snapshot no existe.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_snapshot_missing', __( 'The snapshot does not exist.', 'media-verdict' ) );
 		}
 
 		$manifest = self::read_manifest( $path );
 		if ( ! is_array( $manifest ) || empty( $manifest['items'] ) ) {
-			return new WP_Error( 'media_verdict_snapshot_manifest', __( 'El manifiesto del snapshot es inválido.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_snapshot_manifest', __( 'The snapshot manifest is invalid.', 'media-verdict' ) );
 		}
 
 		$zip = new ZipArchive();
 		if ( true !== $zip->open( $path ) ) {
-			return new WP_Error( 'media_verdict_zip_open', __( 'No se pudo abrir el snapshot.', 'media-verdict' ) );
+			return new WP_Error( 'media_verdict_zip_open', __( 'Could not open the snapshot.', 'media-verdict' ) );
 		}
 
 		$upload_dir = wp_upload_dir();
@@ -318,7 +318,7 @@ class Media_Verdict_Snapshot {
 						'media_verdict_restore_md5',
 						sprintf(
 							/* translators: %s: file path */
-							__( 'Fallo de integridad al restaurar %s.', 'media-verdict' ),
+							__( 'Integrity failure while restoring %s.', 'media-verdict' ),
 							$rel
 						)
 					);
@@ -360,7 +360,7 @@ class Media_Verdict_Snapshot {
 			$file,
 			sprintf(
 				/* translators: 1: files, 2: posts */
-				__( 'Restaurados %1$d archivos y %2$d adjuntos desde el snapshot.', 'media-verdict' ),
+				__( 'Restored %1$d files and %2$d attachments from the snapshot.', 'media-verdict' ),
 				$restored_files,
 				$restored_posts
 			)
@@ -386,7 +386,7 @@ class Media_Verdict_Snapshot {
 			return false;
 		}
 
-		Media_Verdict_DB::audit( 'snapshot_delete', array(), $file, __( 'Snapshot eliminado manualmente.', 'media-verdict' ) );
+		Media_Verdict_DB::audit( 'snapshot_delete', array(), $file, __( 'Snapshot manually deleted.', 'media-verdict' ) );
 
 		return (bool) @unlink( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged,WordPress.WP.AlternativeFunctions
 	}

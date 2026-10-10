@@ -90,10 +90,10 @@ class Media_Verdict_Admin {
 				'ajax'  => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'media_verdict_admin' ),
 				'i18n'  => array(
-					'scanning'  => __( 'Escaneando…', 'media-verdict' ),
-					'done'      => __( 'Escaneo completado.', 'media-verdict' ),
-					'confirmTrash' => __( 'Se creará un snapshot primero y los archivos irán a la papelera de WordPress (no se borran definitivamente). ¿Continuar?', 'media-verdict' ),
-					'selectFirst'  => __( 'Seleccioná al menos un adjunto.', 'media-verdict' ),
+					'scanning'  => __( 'Scanning…', 'media-verdict' ),
+					'done'      => __( 'Scan complete.', 'media-verdict' ),
+					'confirmTrash' => __( 'A snapshot will be created first and the files will go to the WordPress trash (not permanently deleted). Continue?', 'media-verdict' ),
+					'selectFirst'  => __( 'Select at least one attachment.', 'media-verdict' ),
 				),
 			)
 		);
@@ -106,7 +106,7 @@ class Media_Verdict_Admin {
 	 */
 	public static function render() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'No tenés permisos para ver esta página.', 'media-verdict' ) );
+			wp_die( esc_html__( 'You do not have permission to view this page.', 'media-verdict' ) );
 		}
 
 		$scanner = new Media_Verdict_Scanner();
@@ -116,14 +116,14 @@ class Media_Verdict_Admin {
 
 		echo '<div class="wrap mv-wrap">';
 		echo '<h1>' . esc_html__( 'Media Verdict', 'media-verdict' ) . '</h1>';
-		echo '<p class="description">' . esc_html__( 'Detector de uso de la biblioteca de medios con filosofía fail-safe: ante la duda, un archivo se marca como en uso. "Sin uso detectado" significa que el escaneo no encontró referencias, no es una garantía: ningún scanner puede ver referencias dinámicas (CSS hardcodeado, URLs construidas en JS, plantillas de email). La eliminación siempre crea un snapshot primero y usa la papelera de WordPress.', 'media-verdict' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Fail-safe media library usage detector: when in doubt, a file is marked as in use. "No detected usage" means the scan found no references — it is not a guarantee: no scanner can see dynamic references (hardcoded CSS, JS-built URLs, email templates). Deletion always creates a snapshot first and uses the WordPress trash.', 'media-verdict' ) . '</p>';
 
 		$tabs = array(
-			'dashboard'  => __( 'Panel', 'media-verdict' ),
+			'dashboard'  => __( 'Dashboard', 'media-verdict' ),
 			'snapshots'  => __( 'Snapshots', 'media-verdict' ),
-			'protected'  => __( 'Protegidos', 'media-verdict' ),
-			'history'    => __( 'Historial', 'media-verdict' ),
-			'settings'   => __( 'Ajustes', 'media-verdict' ),
+			'protected'  => __( 'Protected', 'media-verdict' ),
+			'history'    => __( 'History', 'media-verdict' ),
+			'settings'   => __( 'Settings', 'media-verdict' ),
 		);
 
 		echo '<h2 class="nav-tab-wrapper">';
@@ -165,24 +165,24 @@ class Media_Verdict_Admin {
 
 		echo '<div class="mv-cards">';
 		self::card( __( 'Total', 'media-verdict' ), number_format_i18n( $summary['total'] ), '' );
-		self::card( __( 'En uso', 'media-verdict' ), number_format_i18n( $summary['used'] ), 'mv-green' );
-		self::card( __( 'Sin uso detectado', 'media-verdict' ), number_format_i18n( $summary['unused'] ), 'mv-red' );
-		self::card( __( 'Recuperables (est.)', 'media-verdict' ), $summary['unused_mb'] . ' MB', 'mv-red' );
+		self::card( __( 'In use', 'media-verdict' ), number_format_i18n( $summary['used'] ), 'mv-green' );
+		self::card( __( 'No detected usage', 'media-verdict' ), number_format_i18n( $summary['unused'] ), 'mv-red' );
+		self::card( __( 'Recoverable (est.)', 'media-verdict' ), $summary['unused_mb'] . ' MB', 'mv-red' );
 		echo '</div>';
 
 		echo '<p>';
 		if ( $summary['last_scan'] ) {
 			printf(
 				/* translators: %s: date */
-				esc_html__( 'Último escaneo: %s', 'media-verdict' ),
+				esc_html__( 'Last scan: %s', 'media-verdict' ),
 				esc_html( $summary['last_scan'] )
 			);
 		} else {
-			esc_html_e( 'Todavía no se corrió ningún escaneo.', 'media-verdict' );
+			esc_html_e( 'No scan has been run yet.', 'media-verdict' );
 		}
 		echo '</p>';
 
-		echo '<p><button id="mv-scan-btn" class="button button-primary">' . esc_html__( 'Escanear', 'media-verdict' ) . '</button> ';
+		echo '<p><button id="mv-scan-btn" class="button button-primary">' . esc_html__( 'Scan', 'media-verdict' ) . '</button> ';
 		echo '<span id="mv-scan-progress" style="display:none"><span class="spinner is-active" style="float:none;margin:0 4px 0 0"></span><span id="mv-scan-label"></span></span></p>';
 		echo '<div id="mv-scan-bar" style="display:none;max-width:600px;height:10px;background:#e5e5e5;border-radius:5px"><div id="mv-scan-fill" style="height:10px;width:0;background:#2271b1;border-radius:5px"></div></div>';
 
@@ -224,40 +224,40 @@ class Media_Verdict_Admin {
 
 		$base = admin_url( 'upload.php?page=media-verdict' );
 
-		echo '<h2>' . esc_html__( 'Veredictos', 'media-verdict' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Verdicts', 'media-verdict' ) . '</h2>';
 
 		// Filters.
 		echo '<form method="get" class="mv-filters">';
 		echo '<input type="hidden" name="page" value="media-verdict" />';
-		foreach ( array( 'all' => __( 'Todos', 'media-verdict' ), 'used' => __( 'En uso', 'media-verdict' ), 'unused' => __( 'Sin uso detectado', 'media-verdict' ) ) as $slug => $label ) {
+		foreach ( array( 'all' => __( 'All', 'media-verdict' ), 'used' => __( 'In use', 'media-verdict' ), 'unused' => __( 'No detected usage', 'media-verdict' ) ) as $slug => $label ) {
 			$active = $status === $slug ? ' button-primary' : '';
 			echo '<a class="button' . esc_attr( $active ) . '" href="' . esc_url( add_query_arg( array( 'media_verdict_status' => $slug, 'media_verdict_paged' => 1, 's' => $search ), $base ) ) . '">' . esc_html( $label ) . '</a> ';
 		}
-		echo '<input type="search" name="s" value="' . esc_attr( $search ) . '" placeholder="' . esc_attr__( 'Buscar…', 'media-verdict' ) . '" /> ';
+		echo '<input type="search" name="s" value="' . esc_attr( $search ) . '" placeholder="' . esc_attr__( 'Search…', 'media-verdict' ) . '" /> ';
 		echo '<input type="hidden" name="media_verdict_status" value="' . esc_attr( $status ) . '" />';
-		echo '<button class="button">' . esc_html__( 'Filtrar', 'media-verdict' ) . '</button>';
+		echo '<button class="button">' . esc_html__( 'Filter', 'media-verdict' ) . '</button>';
 		echo '</form>';
 
 		// Bulk actions.
 		echo '<div class="mv-bulk">';
-		echo '<button class="button" id="mv-bulk-snapshot">' . esc_html__( 'Crear snapshot', 'media-verdict' ) . '</button> ';
-		echo '<button class="button" id="mv-bulk-dryrun">' . esc_html__( 'Dry-run papelera', 'media-verdict' ) . '</button> ';
-		echo '<button class="button button-link-delete" id="mv-bulk-trash">' . esc_html__( 'Mover a papelera (con snapshot)', 'media-verdict' ) . '</button> ';
-		echo '<button class="button" id="mv-bulk-protect">' . esc_html__( 'Proteger', 'media-verdict' ) . '</button>';
+		echo '<button class="button" id="mv-bulk-snapshot">' . esc_html__( 'Create snapshot', 'media-verdict' ) . '</button> ';
+		echo '<button class="button" id="mv-bulk-dryrun">' . esc_html__( 'Trash dry-run', 'media-verdict' ) . '</button> ';
+		echo '<button class="button button-link-delete" id="mv-bulk-trash">' . esc_html__( 'Move to trash (with snapshot)', 'media-verdict' ) . '</button> ';
+		echo '<button class="button" id="mv-bulk-protect">' . esc_html__( 'Protect', 'media-verdict' ) . '</button>';
 		echo '<div id="mv-bulk-result" style="margin-top:8px"></div>';
 		echo '</div>';
 
 		echo '<table class="wp-list-table widefat fixed striped mv-table">';
 		echo '<thead><tr>';
 		echo '<td class="check-column"><input type="checkbox" id="mv-check-all" /></td>';
-		echo '<th>' . esc_html__( 'Archivo', 'media-verdict' ) . '</th>';
-		echo '<th>' . esc_html__( 'Veredicto', 'media-verdict' ) . '</th>';
-		echo '<th>' . esc_html__( 'Tamaño', 'media-verdict' ) . '</th>';
-		echo '<th>' . esc_html__( 'Evidencia', 'media-verdict' ) . '</th>';
+		echo '<th>' . esc_html__( 'File', 'media-verdict' ) . '</th>';
+		echo '<th>' . esc_html__( 'Verdict', 'media-verdict' ) . '</th>';
+		echo '<th>' . esc_html__( 'Size', 'media-verdict' ) . '</th>';
+		echo '<th>' . esc_html__( 'Evidence', 'media-verdict' ) . '</th>';
 		echo '</tr></thead><tbody>';
 
 		if ( empty( $rows ) ) {
-			echo '<tr><td colspan="5">' . esc_html__( 'Sin resultados. Corré un escaneo para poblar la tabla.', 'media-verdict' ) . '</td></tr>';
+			echo '<tr><td colspan="5">' . esc_html__( 'No results. Run a scan to populate the table.', 'media-verdict' ) . '</td></tr>';
 		}
 
 		foreach ( $rows as $row ) {
@@ -271,16 +271,16 @@ class Media_Verdict_Admin {
 			echo '<td>' . $thumb . '<br><code>' . esc_html( wp_basename( (string) $file ) ) . '</code><br><span class="description">#' . esc_html( $id ) . '</span></td>';
 
 			if ( 'used' === $row->status ) {
-				echo '<td><span class="mv-pill mv-used">' . esc_html__( 'En uso', 'media-verdict' ) . '</span></td>';
+				echo '<td><span class="mv-pill mv-used">' . esc_html__( 'In use', 'media-verdict' ) . '</span></td>';
 			} else {
-				echo '<td><span class="mv-pill mv-unused">' . esc_html__( 'Sin uso detectado', 'media-verdict' ) . '</span></td>';
+				echo '<td><span class="mv-pill mv-unused">' . esc_html__( 'No detected usage', 'media-verdict' ) . '</span></td>';
 			}
 
 			echo '<td>' . esc_html( size_format( (int) $row->file_size ) ) . '</td>';
 
 			$summary = Media_Verdict_Library::evidence_summary( $row->evidence );
 			echo '<td class="mv-evidence">' . esc_html( $summary ? $summary : __( '—', 'media-verdict' ) );
-			echo ' <a href="#" class="mv-evidence-toggle">' . esc_html__( 'detalle', 'media-verdict' ) . '</a>';
+			echo ' <a href="#" class="mv-evidence-toggle">' . esc_html__( 'details', 'media-verdict' ) . '</a>';
 			echo '<div class="mv-evidence-full" style="display:none">' . self::evidence_list_html( $row->evidence ) . '</div>';
 			echo '</td>';
 
@@ -309,7 +309,7 @@ class Media_Verdict_Admin {
 	private static function evidence_list_html( $evidence_json ) {
 		$evidence = json_decode( (string) $evidence_json, true );
 		if ( ! is_array( $evidence ) || empty( $evidence ) ) {
-			return '<em>' . esc_html__( 'Sin evidencia registrada.', 'media-verdict' ) . '</em>';
+			return '<em>' . esc_html__( 'No recorded evidence.', 'media-verdict' ) . '</em>';
 		}
 
 		$out = '<ul>';
@@ -326,16 +326,16 @@ class Media_Verdict_Admin {
 	 */
 	private static function render_snapshots() {
 		echo '<h2>' . esc_html__( 'Snapshots', 'media-verdict' ) . '</h2>';
-		echo '<p><button class="button" id="mv-prune-snapshots">' . esc_html__( 'Eliminar snapshots vencidos', 'media-verdict' ) . '</button> <span id="mv-prune-result"></span></p>';
+		echo '<p><button class="button" id="mv-prune-snapshots">' . esc_html__( 'Delete expired snapshots', 'media-verdict' ) . '</button> <span id="mv-prune-result"></span></p>';
 
 		$snaps = Media_Verdict_Snapshot::list_all();
 		if ( empty( $snaps ) ) {
-			echo '<p>' . esc_html__( 'Todavía no hay snapshots.', 'media-verdict' ) . '</p>';
+			echo '<p>' . esc_html__( 'No snapshots yet.', 'media-verdict' ) . '</p>';
 			return;
 		}
 
 		echo '<table class="wp-list-table widefat fixed striped"><thead><tr>';
-		echo '<th>' . esc_html__( 'Archivo', 'media-verdict' ) . '</th><th>' . esc_html__( 'Creado', 'media-verdict' ) . '</th><th>' . esc_html__( 'Tamaño', 'media-verdict' ) . '</th><th>' . esc_html__( 'Adjuntos', 'media-verdict' ) . '</th><th></th>';
+		echo '<th>' . esc_html__( 'File', 'media-verdict' ) . '</th><th>' . esc_html__( 'Created', 'media-verdict' ) . '</th><th>' . esc_html__( 'Size', 'media-verdict' ) . '</th><th>' . esc_html__( 'Attachments', 'media-verdict' ) . '</th><th></th>';
 		echo '</tr></thead><tbody>';
 
 		foreach ( $snaps as $snap ) {
@@ -345,8 +345,8 @@ class Media_Verdict_Admin {
 			echo '<td>' . esc_html( gmdate( 'Y-m-d H:i:s', $snap['created'] ) ) . '</td>';
 			echo '<td>' . esc_html( size_format( $snap['bytes'] ) ) . '</td>';
 			echo '<td>' . esc_html( $count ) . '</td>';
-			echo '<td><button class="button mv-snap-restore" data-file="' . esc_attr( $snap['file'] ) . '">' . esc_html__( 'Restaurar', 'media-verdict' ) . '</button> ';
-			echo '<button class="button button-link-delete mv-snap-delete" data-file="' . esc_attr( $snap['file'] ) . '">' . esc_html__( 'Eliminar', 'media-verdict' ) . '</button></td>';
+			echo '<td><button class="button mv-snap-restore" data-file="' . esc_attr( $snap['file'] ) . '">' . esc_html__( 'Restore', 'media-verdict' ) . '</button> ';
+			echo '<button class="button button-link-delete mv-snap-delete" data-file="' . esc_attr( $snap['file'] ) . '">' . esc_html__( 'Delete', 'media-verdict' ) . '</button></td>';
 			echo '</tr>';
 		}
 
@@ -361,19 +361,19 @@ class Media_Verdict_Admin {
 	private static function render_protected() {
 		$protected = array_map( 'intval', (array) get_option( 'media_verdict_protected', array() ) );
 
-		echo '<h2>' . esc_html__( 'Protegidos', 'media-verdict' ) . '</h2>';
-		echo '<p class="description">' . esc_html__( 'Los adjuntos protegidos siempre se marcan como en uso y nunca aparecen como candidatos a papelera.', 'media-verdict' ) . '</p>';
+		echo '<h2>' . esc_html__( 'Protected', 'media-verdict' ) . '</h2>';
+		echo '<p class="description">' . esc_html__( 'Protected attachments are always marked as in use and never appear as trash candidates.', 'media-verdict' ) . '</p>';
 
 		if ( empty( $protected ) ) {
-			echo '<p>' . esc_html__( 'No hay adjuntos protegidos.', 'media-verdict' ) . '</p>';
+			echo '<p>' . esc_html__( 'No protected attachments.', 'media-verdict' ) . '</p>';
 			return;
 		}
 
-		echo '<table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Adjunto', 'media-verdict' ) . '</th><th></th></tr></thead><tbody>';
+		echo '<table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Attachment', 'media-verdict' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( $protected as $id ) {
 			$title = get_the_title( $id );
 			echo '<tr><td>#' . esc_html( $id ) . ' ' . esc_html( $title ? '«' . $title . '»' : '' ) . '</td>';
-			echo '<td><button class="button mv-unprotect" data-id="' . esc_attr( $id ) . '">' . esc_html__( 'Desproteger', 'media-verdict' ) . '</button></td></tr>';
+			echo '<td><button class="button mv-unprotect" data-id="' . esc_attr( $id ) . '">' . esc_html__( 'Unprotect', 'media-verdict' ) . '</button></td></tr>';
 		}
 		echo '</tbody></table><div id="mv-protect-result" style="margin-top:8px"></div>';
 	}
@@ -384,16 +384,16 @@ class Media_Verdict_Admin {
 	 * @return void
 	 */
 	private static function render_history() {
-		echo '<h2>' . esc_html__( 'Historial de acciones', 'media-verdict' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Action history', 'media-verdict' ) . '</h2>';
 
 		$entries = Media_Verdict_DB::get_audit( 100 );
 		if ( empty( $entries ) ) {
-			echo '<p>' . esc_html__( 'Sin acciones registradas.', 'media-verdict' ) . '</p>';
+			echo '<p>' . esc_html__( 'No recorded actions.', 'media-verdict' ) . '</p>';
 			return;
 		}
 
 		echo '<table class="wp-list-table widefat fixed striped"><thead><tr>';
-		echo '<th>' . esc_html__( 'Fecha', 'media-verdict' ) . '</th><th>' . esc_html__( 'Acción', 'media-verdict' ) . '</th><th>' . esc_html__( 'Adjuntos', 'media-verdict' ) . '</th><th>' . esc_html__( 'Snapshot', 'media-verdict' ) . '</th><th>' . esc_html__( 'Detalle', 'media-verdict' ) . '</th>';
+		echo '<th>' . esc_html__( 'Date', 'media-verdict' ) . '</th><th>' . esc_html__( 'Action', 'media-verdict' ) . '</th><th>' . esc_html__( 'Attachments', 'media-verdict' ) . '</th><th>' . esc_html__( 'Snapshot', 'media-verdict' ) . '</th><th>' . esc_html__( 'Details', 'media-verdict' ) . '</th>';
 		echo '</tr></thead><tbody>';
 
 		foreach ( $entries as $e ) {
@@ -417,25 +417,25 @@ class Media_Verdict_Admin {
 	private static function render_settings() {
 		if ( isset( $_POST['media_verdict_settings_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['media_verdict_settings_nonce'] ), 'media_verdict_settings' ) ) {
 			update_option( 'media_verdict_retention_days', max( 0, (int) $_POST['media_verdict_retention_days'] ) );
-			echo '<div class="notice notice-success"><p>' . esc_html__( 'Ajustes guardados.', 'media-verdict' ) . '</p></div>';
+			echo '<div class="notice notice-success"><p>' . esc_html__( 'Settings saved.', 'media-verdict' ) . '</p></div>';
 		}
 
 		$retention = (int) get_option( 'media_verdict_retention_days', 30 );
 
-		echo '<h2>' . esc_html__( 'Ajustes', 'media-verdict' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Settings', 'media-verdict' ) . '</h2>';
 		echo '<form method="post">';
 		wp_nonce_field( 'media_verdict_settings', 'media_verdict_settings_nonce' );
 		echo '<table class="form-table"><tr>';
-		echo '<th><label for="mv-retention">' . esc_html__( 'Retención de snapshots (días)', 'media-verdict' ) . '</label></th>';
+		echo '<th><label for="mv-retention">' . esc_html__( 'Snapshot retention (days)', 'media-verdict' ) . '</label></th>';
 		echo '<td><input id="mv-retention" type="number" min="0" name="media_verdict_retention_days" value="' . esc_attr( $retention ) . '" /> ';
-		echo '<p class="description">' . esc_html__( '0 = conservar para siempre. Los snapshots vencidos se pueden eliminar manualmente.', 'media-verdict' ) . '</p></td>';
+		echo '<p class="description">' . esc_html__( '0 = keep forever. Expired snapshots can be deleted manually.', 'media-verdict' ) . '</p></td>';
 		echo '</tr></table>';
-		echo '<p><button class="button button-primary">' . esc_html__( 'Guardar', 'media-verdict' ) . '</button></p>';
+		echo '<p><button class="button button-primary">' . esc_html__( 'Save', 'media-verdict' ) . '</button></p>';
 		echo '</form>';
 
 		// Active source parsers (v2): which builders/sliders the engine can read.
-		echo '<h2>' . esc_html__( 'Parsers activos', 'media-verdict' ) . '</h2>';
-		echo '<p class="description">' . esc_html__( 'Fuentes de constructores/sliders detectadas en este sitio. Cada parser solo puede marcar imágenes como en uso, nunca condenarlas.', 'media-verdict' ) . '</p>';
+		echo '<h2>' . esc_html__( 'Active parsers', 'media-verdict' ) . '</h2>';
+		echo '<p class="description">' . esc_html__( 'Builder/slider sources detected on this site. Each parser can only mark images as in use, never condemn them.', 'media-verdict' ) . '</p>';
 		echo '<ul class="mv-parsers">';
 		foreach ( Media_Verdict_Parsers::all() as $parser ) {
 			$active = false;
@@ -444,8 +444,8 @@ class Media_Verdict_Admin {
 			} catch ( Exception $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
 			}
 			$badge = $active
-				? '<span class="mv-badge mv-badge-used">' . esc_html__( 'Activo', 'media-verdict' ) . '</span>'
-				: '<span class="mv-badge mv-badge-unused">' . esc_html__( 'No detectado', 'media-verdict' ) . '</span>';
+				? '<span class="mv-badge mv-badge-used">' . esc_html__( 'Active', 'media-verdict' ) . '</span>'
+				: '<span class="mv-badge mv-badge-unused">' . esc_html__( 'Not detected', 'media-verdict' ) . '</span>';
 			echo '<li>' . esc_html( $parser->label() ) . ' ' . $badge . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $badge is built from escaped strings above.
 		}
 		echo '</ul>';
@@ -459,7 +459,7 @@ class Media_Verdict_Admin {
 	private static function guard() {
 		check_ajax_referer( 'media_verdict_admin', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sin permisos.', 'media-verdict' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'No permission.', 'media-verdict' ) ), 403 );
 		}
 	}
 
@@ -544,7 +544,7 @@ class Media_Verdict_Admin {
 
 		$ids = self::request_ids();
 		if ( empty( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sin adjuntos seleccionados.', 'media-verdict' ) ) );
+			wp_send_json_error( array( 'message' => __( 'No attachments selected.', 'media-verdict' ) ) );
 		}
 
 		$items = array();
@@ -571,10 +571,10 @@ class Media_Verdict_Admin {
 				'message' => $trash_ok
 					? sprintf(
 						/* translators: %d: count */
-						__( 'Se crearía un snapshot y %d adjuntos irían a la papelera de WordPress (recuperables).', 'media-verdict' ),
+						__( 'A snapshot would be created and %d attachments would go to the WordPress trash (recoverable).', 'media-verdict' ),
 						count( $items )
 					)
-					: __( 'ATENCIÓN: la papelera de medios no está activa en este sitio. El flujo de papelera está bloqueado hasta activar MEDIA_TRASH.', 'media-verdict' ),
+					: __( 'WARNING: the media trash is not enabled on this site. The trash flow is blocked until MEDIA_TRASH is enabled.', 'media-verdict' ),
 			)
 		);
 	}
@@ -590,14 +590,14 @@ class Media_Verdict_Admin {
 
 		$ids = self::request_ids();
 		if ( empty( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sin adjuntos seleccionados.', 'media-verdict' ) ) );
+			wp_send_json_error( array( 'message' => __( 'No attachments selected.', 'media-verdict' ) ) );
 		}
 
 		// Never trash protected attachments.
 		$protected = array_map( 'intval', (array) get_option( 'media_verdict_protected', array() ) );
 		$ids       = array_values( array_diff( $ids, $protected ) );
 		if ( empty( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Todos los seleccionados están protegidos.', 'media-verdict' ) ) );
+			wp_send_json_error( array( 'message' => __( 'All selected items are protected.', 'media-verdict' ) ) );
 		}
 
 		// Fail-safe: never silently downgrade trash to force-delete.
@@ -629,7 +629,7 @@ class Media_Verdict_Admin {
 			$snap['file'],
 			sprintf(
 				/* translators: 1: trashed, 2: failed */
-				__( '%1$d a papelera, %2$d fallidos.', 'media-verdict' ),
+				__( '%1$d moved to trash, %2$d failed.', 'media-verdict' ),
 				count( $trashed ),
 				count( $failed )
 			)
@@ -642,7 +642,7 @@ class Media_Verdict_Admin {
 				'snapshot'  => $snap['file'],
 				'message'   => sprintf(
 					/* translators: %d: count */
-					__( '%d adjuntos movidos a la papelera. Snapshot: %s', 'media-verdict' ),
+					__( '%d attachments moved to trash. Snapshot: %s', 'media-verdict' ),
 					count( $trashed ),
 					$snap['file']
 				),
@@ -660,7 +660,7 @@ class Media_Verdict_Admin {
 
 		$ids = self::request_ids();
 		if ( empty( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sin adjuntos seleccionados.', 'media-verdict' ) ) );
+			wp_send_json_error( array( 'message' => __( 'No attachments selected.', 'media-verdict' ) ) );
 		}
 
 		$snap = Media_Verdict_Snapshot::create( $ids, 'manual' );
@@ -673,7 +673,7 @@ class Media_Verdict_Admin {
 				'file'    => $snap['file'],
 				'message' => sprintf(
 					/* translators: 1: count, 2: file */
-					__( 'Snapshot creado: %1$d adjuntos en %2$s', 'media-verdict' ),
+					__( 'Snapshot created: %1$d attachments in %2$s', 'media-verdict' ),
 					$snap['count'],
 					$snap['file']
 				),
@@ -695,10 +695,10 @@ class Media_Verdict_Admin {
 
 		if ( $protect ) {
 			$protected = array_values( array_unique( array_merge( $protected, $ids ) ) );
-			Media_Verdict_DB::audit( 'protect', $ids, '', __( 'Adjuntos protegidos.', 'media-verdict' ) );
+			Media_Verdict_DB::audit( 'protect', $ids, '', __( 'Attachments protected.', 'media-verdict' ) );
 		} else {
 			$protected = array_values( array_diff( $protected, $ids ) );
-			Media_Verdict_DB::audit( 'unprotect', $ids, '', __( 'Adjuntos desprotegidos.', 'media-verdict' ) );
+			Media_Verdict_DB::audit( 'unprotect', $ids, '', __( 'Attachments unprotected.', 'media-verdict' ) );
 		}
 
 		update_option( 'media_verdict_protected', $protected );
@@ -724,7 +724,7 @@ class Media_Verdict_Admin {
 			array(
 				'message' => sprintf(
 					/* translators: 1: files, 2: posts */
-					__( 'Restaurados %1$d archivos y %2$d adjuntos.', 'media-verdict' ),
+					__( 'Restored %1$d files and %2$d attachments.', 'media-verdict' ),
 					$result['restored_files'],
 					$result['restored_posts']
 				),
@@ -742,10 +742,10 @@ class Media_Verdict_Admin {
 
 		$file = isset( $_POST['file'] ) ? sanitize_file_name( wp_basename( (string) $_POST['file'] ) ) : '';
 		if ( Media_Verdict_Snapshot::delete( $file ) ) {
-			wp_send_json_success( array( 'message' => __( 'Snapshot eliminado.', 'media-verdict' ) ) );
+			wp_send_json_success( array( 'message' => __( 'Snapshot deleted.', 'media-verdict' ) ) );
 		}
 
-		wp_send_json_error( array( 'message' => __( 'No se pudo eliminar el snapshot.', 'media-verdict' ) ) );
+		wp_send_json_error( array( 'message' => __( 'Could not delete the snapshot.', 'media-verdict' ) ) );
 	}
 
 	/**
@@ -761,7 +761,7 @@ class Media_Verdict_Admin {
 			array(
 				'message' => sprintf(
 					/* translators: %d: count */
-					__( '%d snapshots vencidos eliminados.', 'media-verdict' ),
+					__( '%d expired snapshots deleted.', 'media-verdict' ),
 					$deleted
 				),
 			)

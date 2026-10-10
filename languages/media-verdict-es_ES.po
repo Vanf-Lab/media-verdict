@@ -1,0 +1,375 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Media Verdict 0.3.2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+
+msgid " (+%d more)"
+msgstr " (+%d más)"
+
+msgid "%1$d moved to trash, %2$d failed."
+msgstr "%1$d a papelera, %2$d fallidos."
+
+msgid "%1$s #%2$d (revision)"
+msgstr "%1$s #%2$d (revisión)"
+
+msgid "%1$s #%2$d%3$s"
+msgstr "%1$s #%2$d%3$s"
+
+msgid "%1$s: %2$d / %3$d"
+msgstr "%1$s: %2$d / %3$d"
+
+msgid "%d attachments moved to trash. Snapshot: %s"
+msgstr "%d adjuntos movidos a la papelera. Snapshot: %s"
+
+msgid "%d expired snapshots deleted."
+msgstr "%d snapshots vencidos eliminados."
+
+msgid "0 = keep forever. Expired snapshots can be deleted manually."
+msgstr "0 = conservar para siempre. Los snapshots vencidos se pueden eliminar manualmente."
+
+msgid "WARNING: the media trash is not enabled on this site. The trash flow is blocked until MEDIA_TRASH is enabled."
+msgstr "ATENCIÓN: la papelera de medios no está activa en este sitio. El flujo de papelera está bloqueado hasta activar MEDIA_TRASH."
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Dynamic system asset (possible reference from code)"
+msgstr "Activo dinámico del sistema (referencia posible desde código)"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Attachment"
+msgstr "Adjunto"
+
+msgid "Attachments unprotected."
+msgstr "Adjuntos desprotegidos."
+
+msgid "Attachments protected."
+msgstr "Adjuntos protegidos."
+
+msgid "Attachments"
+msgstr "Adjuntos"
+
+msgid "Settings saved."
+msgstr "Ajustes guardados."
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "File"
+msgstr "Archivo"
+
+msgid "Search…"
+msgstr "Buscar…"
+
+msgid "Cornerstone: page #%1$d%2$s"
+msgstr "Cornerstone: página #%1$d%2$s"
+
+msgid "Created"
+msgstr "Creado"
+
+msgid "Create snapshot"
+msgstr "Crear snapshot"
+
+msgid "Unprotect"
+msgstr "Desproteger"
+
+msgid "Details"
+msgstr "Detalle"
+
+msgid "Fail-safe media library usage detector: when in doubt, a file is marked as in use. \"No detected usage\" means the scan found no references — it is not a guarantee: no scanner can see dynamic references (hardcoded CSS, JS-built URLs, email templates). Deletion always creates a snapshot first and uses the WordPress trash."
+msgstr "Detector de uso de la biblioteca de medios con filosofía fail-safe: ante la duda, un archivo se marca como en uso. \"Sin uso detectado\" significa que el escaneo no encontró referencias, no es una garantía: ningún scanner puede ver referencias dinámicas (CSS hardcodeado, URLs construidas en JS, plantillas de email). La eliminación siempre crea un snapshot primero y usa la papelera de WordPress."
+
+msgid "Trash dry-run"
+msgstr "Dry-run papelera"
+
+msgid "The snapshot manifest is invalid."
+msgstr "El manifiesto del snapshot es inválido."
+
+msgid "The snapshot does not exist."
+msgstr "El snapshot no existe."
+
+msgid "Elementor: %s"
+msgstr "Elementor: %s"
+
+msgid "Delete expired snapshots"
+msgstr "Eliminar snapshots vencidos"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "In use"
+msgstr "En uso"
+
+msgid "Post"
+msgstr "Entrada"
+
+msgid "Scanning…"
+msgstr "Escaneando…"
+
+msgid "Scan"
+msgstr "Escanear"
+
+msgid "Scan complete."
+msgstr "Escaneo completado."
+
+msgid "Evidence"
+msgstr "Evidencia"
+
+msgid "Integrity failure while restoring %s."
+msgstr "Fallo de integridad al restaurar %s."
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Builder/slider sources detected on this site. Each parser can only mark images as in use, never condemn them."
+msgstr "Fuentes de constructores/sliders detectadas en este sitio. Cada parser solo puede marcar imágenes como en uso, nunca condenarlas."
+
+msgid "%s gallery"
+msgstr "Galería de %s"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Action history"
+msgstr "Historial de acciones"
+
+msgid "History"
+msgstr "Historial"
+
+msgid "Site icon"
+msgstr "Icono del sitio"
+
+msgid "Featured image of %s"
+msgstr "Imagen destacada de %s"
+
+msgid "The media trash is not enabled on this site (MEDIA_TRASH is disabled). To use it, add define( 'MEDIA_TRASH', true ); to your wp-config.php. For safety, Media Verdict will not move files to the trash until then."
+msgstr "La papelera de medios no está activa en este sitio (MEDIA_TRASH desactivado). Para usarla, añadí define( 'MEDIA_TRASH', true ); a tu wp-config.php. Por seguridad, Media Verdict no mueve archivos a la papelera hasta entonces."
+
+msgid "LayerSlider: slide background (project \"%s\")"
+msgstr "LayerSlider: fondo de slide (proyecto «%s»)"
+
+msgid "Site logo"
+msgstr "Logo del sitio"
+
+msgid "Protected attachments are always marked as in use and never appear as trash candidates."
+msgstr "Los adjuntos protegidos siempre se marcan como en uso y nunca aparecen como candidatos a papelera."
+
+msgid "Master Slider: slide (slider #%s)"
+msgstr "Master Slider: slide (slider #%s)"
+
+msgid "Master Slider: slide \"%1$s\" (#%2$s)"
+msgstr "Master Slider: slide de «%1$s» (#%2$s)"
+
+msgid "Media Verdict"
+msgstr "Media Verdict"
+
+msgid "Meta %1$s of %2$s"
+msgstr "Meta %1$s de %2$s"
+
+msgid "Meta %1$s of term \"%2$s\""
+msgstr "Meta %1$s del término «%2$s»"
+
+msgid "Meta %1$s of user \"%2$s\""
+msgstr "Meta %1$s del usuario «%2$s»"
+
+msgid "Move to trash (with snapshot)"
+msgstr "Mover a papelera (con snapshot)"
+
+msgid "No attachments had files on disk."
+msgstr "Ningún adjunto tenía archivos en disco."
+
+msgid "Not detected"
+msgstr "No detectado"
+
+msgid "No attachments to back up."
+msgstr "No hay adjuntos para respaldar."
+
+msgid "No protected attachments."
+msgstr "No hay adjuntos protegidos."
+
+msgid "Could not open the snapshot."
+msgstr "No se pudo abrir el snapshot."
+
+msgid "Could not create the ZIP file."
+msgstr "No se pudo crear el archivo ZIP."
+
+msgid "Could not create the snapshots directory."
+msgstr "No se pudo crear el directorio de snapshots."
+
+msgid "Could not delete the snapshot."
+msgstr "No se pudo eliminar el snapshot."
+
+msgid "You do not have permission to view this page."
+msgstr "No tenés permisos para ver esta página."
+
+msgid "Option %s"
+msgstr "Opción %s"
+
+msgid "Oxygen: page #%1$d%2$s"
+msgstr "Oxygen: página #%1$d%2$s"
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Active parsers"
+msgstr "Parsers activos"
+
+msgid "Theme customizer (%s)"
+msgstr "Personalizador del tema (%s)"
+
+msgid "Elementor template"
+msgstr "Plantilla Elementor"
+
+msgid "Product"
+msgstr "Producto"
+
+msgid "Protect"
+msgstr "Proteger"
+
+msgid "Manually protected"
+msgstr "Protegido manualmente"
+
+msgid "Protected"
+msgstr "Protegidos"
+
+msgid "Page"
+msgstr "Página"
+
+msgid "Recoverable (est.)"
+msgstr "Recuperables (est.)"
+
+msgid "Restored %1$d files and %2$d attachments from the snapshot."
+msgstr "Restaurados %1$d archivos y %2$d adjuntos desde el snapshot."
+
+msgid "Restored %1$d files and %2$d attachments."
+msgstr "Restaurados %1$d archivos y %2$d adjuntos."
+
+msgid "Restore"
+msgstr "Restaurar"
+
+msgid "Snapshot retention (days)"
+msgstr "Retención de snapshots (días)"
+
+msgid "Revision"
+msgstr "Revisión"
+
+msgid "Revolution Slider: slide of \"%s\""
+msgstr "Revolution Slider: slide de «%s»"
+
+msgid "A snapshot will be created first and the files will go to the WordPress trash (not permanently deleted). Continue?"
+msgstr "Se creará un snapshot primero y los archivos irán a la papelera de WordPress (no se borran definitivamente). ¿Continuar?"
+
+msgid "A snapshot would be created and %d attachments would go to the WordPress trash (recoverable)."
+msgstr "Se crearía un snapshot y %d adjuntos irían a la papelera de WordPress (recuperables)."
+
+msgid "Select at least one attachment."
+msgstr "Seleccioná al menos un adjunto."
+
+msgid "No recorded actions."
+msgstr "Sin acciones registradas."
+
+msgid "No attachments selected."
+msgstr "Sin adjuntos seleccionados."
+
+msgid "Not scanned"
+msgstr "Sin escanear"
+
+msgid "No recorded evidence."
+msgstr "Sin evidencia registrada."
+
+msgid "No permission."
+msgstr "Sin permisos."
+
+msgid "No results. Run a scan to populate the table."
+msgstr "Sin resultados. Corré un escaneo para poblar la tabla."
+
+msgid "No detected usage"
+msgstr "Sin uso detectado"
+
+msgid "No detected usage: no references found during the scan. This is not a guarantee."
+msgstr "Sin uso detectado: ninguna referencia encontrada en el escaneo. Esto no es una garantía."
+
+msgid "Smart Slider 3: slide #%1$d background \"%2$s\""
+msgstr "Smart Slider 3: fondo del slide #%1$d «%2$s»"
+
+msgid "Snapshot created with %d attachments."
+msgstr "Snapshot creado con %d adjuntos."
+
+msgid "Snapshot created: %1$d attachments in %2$s"
+msgstr "Snapshot creado: %1$d adjuntos en %2$s"
+
+msgid "Snapshot manually deleted."
+msgstr "Snapshot eliminado manualmente."
+
+msgid "Snapshot deleted."
+msgstr "Snapshot eliminado."
+
+msgid "Snapshot"
+msgstr "Snapshot"
+
+msgid "Snapshots"
+msgstr "Snapshots"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "No snapshots yet."
+msgstr "Todavía no hay snapshots."
+
+msgid "No scan has been run yet."
+msgstr "Todavía no se corrió ningún escaneo."
+
+msgid "All selected items are protected."
+msgstr "Todos los seleccionados están protegidos."
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Usage"
+msgstr "Uso"
+
+msgid "View details"
+msgstr "Ver detalle"
+
+msgid "Verdict"
+msgstr "Veredicto"
+
+msgid "Verdicts"
+msgstr "Veredictos"
+
+msgid "Admin preview (Revolution Slider \"%s\")"
+msgstr "Vista previa de admin (Revolution Slider «%s»)"
+
+msgid "Visual Composer: page #%1$d%2$s"
+msgstr "Visual Composer: página #%1$d%2$s"
+
+msgid "Visual Composer: page #%d"
+msgstr "Visual Composer: página #%d"
+
+msgid "WPBakery: page #%1$d%2$s"
+msgstr "WPBakery: página #%1$d%2$s"
+
+msgid "Widget (%s)"
+msgstr "Widget (%s)"
+
+msgid "ZipArchive is not available on this server."
+msgstr "ZipArchive no está disponible en este servidor."
+
+msgid "details"
+msgstr "detalle"
+
+msgid "Last scan: %s"
+msgstr "Último escaneo: %s"
+
+msgid "—"
+msgstr "—"

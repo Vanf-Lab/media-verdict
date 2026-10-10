@@ -40,6 +40,7 @@ WP-CLI: `wp media-verdict scan|list|snapshot|trash|restore|report`.
 == Changelog ==
 
 = 0.3.2 =
+* Internationalization: all user-facing strings are now English source strings with full Spanish (es_ES) translation shipped in `languages/` (`media-verdict.pot` included for translators). The UI follows the site language automatically — no manual switch needed.
 * WordPress.org review compliance: renamed the internal AJAX action prefix from `mv_` to `media_verdict_` (plus nonces, script handles and related identifiers) to meet the directory prefixing guideline; readme Contributors now uses the WordPress.org username and the short description was shortened to 145 characters.
 
 = 0.3.1 =

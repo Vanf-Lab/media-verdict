@@ -299,7 +299,7 @@ class Media_Verdict_Scanner {
 
 			$label = sprintf(
 				/* translators: 1: meta key, 2: post label */
-				__( 'Meta %1$s de %2$s', 'media-verdict' ),
+				__( 'Meta %1$s of %2$s', 'media-verdict' ),
 				$row->meta_key,
 				$this->post_label( $post_id )
 			);
@@ -312,7 +312,7 @@ class Media_Verdict_Scanner {
 							$id,
 							sprintf(
 								/* translators: %s: post label */
-								__( 'Imagen destacada de %s', 'media-verdict' ),
+								__( 'Featured image of %s', 'media-verdict' ),
 								$this->post_label( $post_id )
 							),
 							'high'
@@ -328,7 +328,7 @@ class Media_Verdict_Scanner {
 								$id,
 								sprintf(
 									/* translators: %s: post label */
-									__( 'Galería de %s', 'media-verdict' ),
+									__( '%s gallery', 'media-verdict' ),
 									$this->post_label( $post_id )
 								),
 								'high'
@@ -424,7 +424,7 @@ class Media_Verdict_Scanner {
 			$name = ( $term && ! is_wp_error( $term ) ) ? $term->name : '#' . (int) $row->term_id;
 			$label = sprintf(
 				/* translators: 1: meta key, 2: term name */
-				__( 'Meta %1$s del término «%2$s»', 'media-verdict' ),
+				__( 'Meta %1$s of term "%2$s"', 'media-verdict' ),
 				$row->meta_key,
 				$name
 			);
@@ -477,7 +477,7 @@ class Media_Verdict_Scanner {
 			$user  = get_userdata( (int) $row->user_id );
 			$label = sprintf(
 				/* translators: 1: meta key, 2: user login */
-				__( 'Meta %1$s del usuario «%2$s»', 'media-verdict' ),
+				__( 'Meta %1$s of user "%2$s"', 'media-verdict' ),
 				$row->meta_key,
 				$user ? $user->user_login : '#' . (int) $row->user_id
 			);
@@ -534,7 +534,7 @@ class Media_Verdict_Scanner {
 			if ( 'custom_logo' === $name ) {
 				$id = $this->tokens->resolve_id( (int) $value );
 				if ( $id ) {
-					$this->add_evidence( $id, __( 'Logo del sitio', 'media-verdict' ), 'high' );
+					$this->add_evidence( $id, __( 'Site logo', 'media-verdict' ), 'high' );
 				}
 				continue;
 			}
@@ -542,7 +542,7 @@ class Media_Verdict_Scanner {
 			if ( 'site_icon' === $name ) {
 				$id = $this->tokens->resolve_id( (int) $value );
 				if ( $id ) {
-					$this->add_evidence( $id, __( 'Icono del sitio', 'media-verdict' ), 'high' );
+					$this->add_evidence( $id, __( 'Site icon', 'media-verdict' ), 'high' );
 				}
 				continue;
 			}
@@ -550,7 +550,7 @@ class Media_Verdict_Scanner {
 			if ( 0 === strpos( $name, 'theme_mods_' ) ) {
 				$label = sprintf(
 					/* translators: %s: theme slug */
-					__( 'Personalizador del tema (%s)', 'media-verdict' ),
+					__( 'Theme customizer (%s)', 'media-verdict' ),
 					substr( $name, 11 )
 				);
 				foreach ( $this->find_in_mixed( maybe_unserialize( $value ) ) as $id ) {
@@ -584,7 +584,7 @@ class Media_Verdict_Scanner {
 					$id,
 					sprintf(
 						/* translators: %s: option name */
-						__( 'Opción %s', 'media-verdict' ),
+						__( 'Option %s', 'media-verdict' ),
 						$name
 					),
 					'low'
@@ -656,7 +656,7 @@ class Media_Verdict_Scanner {
 			$base     = $attached ? strtolower( pathinfo( wp_basename( $attached ), PATHINFO_FILENAME ) ) : '';
 			if ( '' !== $base && in_array( $base, $dynamic, true ) ) {
 				$evidence[] = array(
-					'label'      => __( 'Activo dinámico del sistema (referencia posible desde código)', 'media-verdict' ),
+					'label'      => __( 'Dynamic system asset (possible reference from code)', 'media-verdict' ),
 					'confidence' => 'high',
 				);
 			}
@@ -664,7 +664,7 @@ class Media_Verdict_Scanner {
 			// User-protected attachments are always "used".
 			if ( in_array( $id, $this->protected, true ) ) {
 				$evidence[] = array(
-					'label'      => __( 'Protegido manualmente', 'media-verdict' ),
+					'label'      => __( 'Manually protected', 'media-verdict' ),
 					'confidence' => 'high',
 				);
 			}
@@ -677,7 +677,7 @@ class Media_Verdict_Scanner {
 
 		Media_Verdict_DB::prune_missing();
 		update_option( 'media_verdict_last_scan', current_time( 'mysql' ) );
-		Media_Verdict_DB::audit( 'scan', array(), '', __( 'Escaneo completado.', 'media-verdict' ) );
+		Media_Verdict_DB::audit( 'scan', array(), '', __( 'Scan complete.', 'media-verdict' ) );
 
 		// Scan complete: persisted evidence must not leak into the next scan.
 		// Clear the in-memory buffer too, so a driver-level flush_evidence()
@@ -994,11 +994,11 @@ class Media_Verdict_Scanner {
 		}
 
 		$type_labels = array(
-			'post'            => __( 'Entrada', 'media-verdict' ),
-			'page'            => __( 'Página', 'media-verdict' ),
-			'product'         => __( 'Producto', 'media-verdict' ),
-			'attachment'      => __( 'Adjunto', 'media-verdict' ),
-			'elementor_library' => __( 'Plantilla Elementor', 'media-verdict' ),
+			'post'            => __( 'Post', 'media-verdict' ),
+			'page'            => __( 'Page', 'media-verdict' ),
+			'product'         => __( 'Product', 'media-verdict' ),
+			'attachment'      => __( 'Attachment', 'media-verdict' ),
+			'elementor_library' => __( 'Elementor template', 'media-verdict' ),
 		);
 
 		$type_name = isset( $type_labels[ $post_type ] ) ? $type_labels[ $post_type ] : $post_type;
@@ -1007,8 +1007,8 @@ class Media_Verdict_Scanner {
 		if ( is_object( $post ) && 'revision' === $post_type ) {
 			return sprintf(
 				/* translators: 1: type, 2: ID */
-				__( '%1$s #%2$d (revisión)', 'media-verdict' ),
-				__( 'Revisión', 'media-verdict' ),
+				__( '%1$s #%2$d (revision)', 'media-verdict' ),
+				__( 'Revision', 'media-verdict' ),
 				$id
 			);
 		}

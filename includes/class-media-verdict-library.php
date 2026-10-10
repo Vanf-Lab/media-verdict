@@ -76,11 +76,11 @@ class Media_Verdict_Library {
 				'nonce' => wp_create_nonce( 'media_verdict_verdicts' ),
 				'admin' => admin_url( 'upload.php?page=media-verdict' ),
 				'i18n'  => array(
-					'used'       => __( 'En uso', 'media-verdict' ),
-					'unused'     => __( 'Sin uso detectado', 'media-verdict' ),
-					'evidence'   => __( 'Evidencia', 'media-verdict' ),
-					'view'       => __( 'Ver detalle', 'media-verdict' ),
-					'notScanned' => __( 'Sin escanear', 'media-verdict' ),
+					'used'       => __( 'In use', 'media-verdict' ),
+					'unused'     => __( 'No detected usage', 'media-verdict' ),
+					'evidence'   => __( 'Evidence', 'media-verdict' ),
+					'view'       => __( 'View details', 'media-verdict' ),
+					'notScanned' => __( 'Not scanned', 'media-verdict' ),
 				),
 			)
 		);
@@ -120,7 +120,7 @@ class Media_Verdict_Library {
 		check_ajax_referer( 'media_verdict_verdicts', 'nonce' );
 
 		if ( ! current_user_can( 'upload_files' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sin permisos.', 'media-verdict' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'No permission.', 'media-verdict' ) ), 403 );
 		}
 
 		$ids = isset( $_POST['ids'] ) ? array_map( 'intval', (array) $_POST['ids'] ) : array();
@@ -165,7 +165,7 @@ class Media_Verdict_Library {
 		if ( count( $evidence ) > 5 ) {
 			$summary .= sprintf(
 				/* translators: %d: more evidence count */
-				__( ' (+%d más)', 'media-verdict' ),
+				__( ' (+%d more)', 'media-verdict' ),
 				count( $evidence ) - 5
 			);
 		}
@@ -180,7 +180,7 @@ class Media_Verdict_Library {
 	 * @return array
 	 */
 	public static function columns( $columns ) {
-		$columns['media_verdict_usage'] = __( 'Uso', 'media-verdict' );
+		$columns['media_verdict_usage'] = __( 'Usage', 'media-verdict' );
 		return $columns;
 	}
 
@@ -200,17 +200,17 @@ class Media_Verdict_Library {
 		$url     = admin_url( 'upload.php?page=media-verdict&media_verdict_focus=' . (int) $post_id );
 
 		if ( ! $verdict ) {
-			echo '<span class="mv-pill mv-unknown">' . esc_html__( 'Sin escanear', 'media-verdict' ) . '</span>';
+			echo '<span class="mv-pill mv-unknown">' . esc_html__( 'Not scanned', 'media-verdict' ) . '</span>';
 			return;
 		}
 
 		if ( 'used' === $verdict->status ) {
 			$summary = self::evidence_summary( $verdict->evidence );
 			echo '<a class="mv-pill mv-used" title="' . esc_attr( $summary ) . '" href="' . esc_url( $url ) . '">'
-				. esc_html__( 'En uso', 'media-verdict' ) . '</a>';
+				. esc_html__( 'In use', 'media-verdict' ) . '</a>';
 		} else {
-			echo '<a class="mv-pill mv-unused" href="' . esc_url( $url ) . '" title="' . esc_attr__( 'Sin uso detectado: ninguna referencia encontrada en el escaneo. Esto no es una garantía.', 'media-verdict' ) . '">'
-				. esc_html__( 'Sin uso detectado', 'media-verdict' ) . '</a>';
+			echo '<a class="mv-pill mv-unused" href="' . esc_url( $url ) . '" title="' . esc_attr__( 'No detected usage: no references found during the scan. This is not a guarantee.', 'media-verdict' ) . '">'
+				. esc_html__( 'No detected usage', 'media-verdict' ) . '</a>';
 		}
 	}
 }

@@ -52,3 +52,15 @@ function media_verdict_activate() {
 }
 
 add_action( 'plugins_loaded', array( 'Media_Verdict', 'instance' ) );
+
+/**
+ * Loads the plugin translations. For wordpress.org installs WordPress 4.6+
+ * loads language packs automatically; this covers manual (e.g. GitHub ZIP)
+ * installs. Source strings are English; es_ES ships in /languages.
+ *
+ * @return void
+ */
+function media_verdict_load_textdomain() {
+	load_plugin_textdomain( 'media-verdict', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+add_action( 'init', 'media_verdict_load_textdomain' );
